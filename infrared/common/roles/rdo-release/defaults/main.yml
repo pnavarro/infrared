@@ -21,23 +21,23 @@ rr_ceph_repo_version: "{{ rr_ceph_release[rr_release_name_discovered|openstack_r
 rr_release_name_discovered: "{{ install.version|default(undercloud_version) }}"
 
 # override with -e to use real release instead of master
-# for example when centos7-*queens* should be used instead of master
+# for example when centos8-*queens* should be used instead of master
 rr_release_name: "{{ (rr_release_name_discovered == rr_master_release)|ternary('master', rr_release_name_discovered) }}"
 rr_rdo_repos:
     default:
         delorean:
-            url: "https://trunk.rdoproject.org/centos7-{{ rr_release_name }}/{{ install.build|default('current') }}/delorean.repo"
+            url: "https://trunk.rdoproject.org/centos8-{{ rr_release_name }}/{{ install.build|default('current') }}/delorean.repo"
         delorean_deps:
-            url: "https://trunk.rdoproject.org/centos7-{{ rr_release_name }}/delorean-deps.repo"
+            url: "https://trunk.rdoproject.org/centos8-{{ rr_release_name }}/delorean-deps.repo"
         ceph:
             package: "centos-release-ceph-{{ rr_ceph_repo_version }}"
             file_name: "CentOS-Ceph-{{ rr_ceph_repo_version | capitalize }}.repo"
 
     master_current:
         delorean:
-            url: https://trunk.rdoproject.org/centos7-master/current-tripleo/delorean.repo
+            url: https://trunk.rdoproject.org/centos8-master/current-tripleo/delorean.repo
         delorean_current:
-            url: https://trunk.rdoproject.org/centos7/current/delorean.repo
+            url: https://trunk.rdoproject.org/centos8/current/delorean.repo
             type: current
             packages:
                 - diskimage-builder
@@ -57,21 +57,21 @@ rr_rdo_repos:
                 - openstack-tripleo-ui
                 - puppet-*
         delorean_deps:
-            url: https://trunk.rdoproject.org/centos7-master/delorean-deps.repo
+            url: https://trunk.rdoproject.org/centos8-master/delorean-deps.repo
         ceph:
             package: "centos-release-ceph-{{ (rr_release_name_discovered|openstack_release < 10)|ternary('hammer', 'jewel') }}"
             file_name: "CentOS-Ceph-{{ (rr_release_name_discovered|openstack_release < 10)|ternary('Hammer', 'Jewel') }}.repo"
 
     master_master-tripleo-ci:
         delorean:
-            url: "https://trunk.rdoproject.org/centos7/current-tripleo/delorean.repo"
+            url: "https://trunk.rdoproject.org/centos8/current-tripleo/delorean.repo"
         delorean_deps:
-            url: "https://trunk.rdoproject.org/centos7-master/delorean-deps.repo"
+            url: "https://trunk.rdoproject.org/centos8-master/delorean-deps.repo"
         ceph:
             package: "centos-release-ceph-{{ (rr_release_name_discovered|openstack_release < 10)|ternary('hammer', 'jewel') }}"
             file_name: "CentOS-Ceph-{{ (rr_release_name_discovered|openstack_release < 10)|ternary('Hammer', 'Jewel') }}.repo"
         delorean_current:
-             url: "https://trunk.rdoproject.org/centos7/current/delorean.repo"
+             url: "https://trunk.rdoproject.org/centos8/current/delorean.repo"
              type: current
              packages:
                  - diskimage-builder
